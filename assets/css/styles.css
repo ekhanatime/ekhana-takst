@@ -271,3 +271,6 @@ tr.tRow[data-rowstate="needs"]{ outline:1px solid rgba(220,38,38,.25); }
 .sideDivider{height:1px;background:rgba(0,0,0,.08);margin:10px 6px}
 .sideLink{display:block;padding:10px 12px;border-radius:14px;text-decoration:none;color:inherit;border:1px solid rgba(0,0,0,.08);background:#fff}
 .sideLink:hover{background:rgba(0,0,0,.04)}
+
+/* Modal border radius for onboarding */
+.modal-content-rounded { border-radius: 16px; }
