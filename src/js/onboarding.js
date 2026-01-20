@@ -1,5 +1,5 @@
-/*
-  Ekhana Takst – Kunde (innhenting)
+/* Docs: ./docs/functions/onboarding.md | SPOT: ./SPOT.md#function-catalog */
+/* Ekhana Takst – Kunde (innhenting)
   - Kontaktinfo + adresse-autocomplete via GeoNorge
   - Vis "boligkort" med kart + nøkkelinfo
   - Dynamiske etasjer/rom som mates inn i samme localStorage-state som takst UI

@@ -1,0 +1,45 @@
+erDiagram
+    projects {
+        uuid id PK
+        text name
+        text description
+        uuid owner_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    scans {
+        uuid id PK
+        uuid project_id FK
+        uuid floor_id FK
+        uuid room_id FK
+        text name
+        text source "blk2go"
+        text status "queued|processing|ready|failed"
+        bigint upload_bytes
+        text master_e57_path
+        text derived_laz_path
+        text potree_path
+        text thumbnail_path
+        text error_message
+        timestamp created_at
+        timestamp updated_at
+        timestamp processed_at
+    }
+
+    observations {
+        uuid id PK
+        uuid checklist_item_id FK
+        uuid project_id FK
+        text tg "TG0|TG1|TG2|TG3"
+        text finding
+        text cause
+        text consequence
+        text action
+        jsonb media
+        timestamp created_at
+        timestamp reviewed_at
+    }
+
+    projects ||--o{ scans : "has many"
+    projects ||--o{ observations : "has many"

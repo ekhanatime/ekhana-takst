@@ -127,3 +127,16 @@
 - Utvidet teknisk arkitektur med PDAL/Entwine-prosessering og Potree-viewer
 - Lagt til 3D-roadmap i prosjektstatus med spesifikke milepæler
 - Forberedt implementasjon av self-hosted 3D-pipeline uten eksterne avhengigheter
+
+---
+
+## 20. januar 2026 kl. 17:30
+
+### 3D Point Cloud Mapping - Første implementering
+- Opprettet dedikert dokumentasjon: `docs/3d-pipeline.md` med komplett arbeidsflyt
+- Lagt til demo-side: `src/pages/scans.html` for 3D-funksjonalitet
+- Strukturert lagringsmapper: `scans/master/` (E57-filer) og `scans/web/` (Potree-filer)
+- Utvidet teknisk arkitektur med PDAL/Entwine-prosessering og Potree-visualisering
+- Integrert Leica BLK2GO arbeidsflyt: scan → E57 → web-viewer på 2-6 minutter
+- Lagt til konkrete implementeringssteg i roadmap med backend-API-planer
+- Forberedt database-schema for scan-håndtering og prosessering-status

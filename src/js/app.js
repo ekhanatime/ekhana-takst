@@ -1,3 +1,4 @@
+/* Docs: ./docs/functions/app.md | SPOT: ./SPOT.md#function-catalog */
 /* Ekhana Standalone v5
    - JSON-first: loads canonical profile from /data/ns3600_fullprofil_v1.0.0.json
    - Three views: Kunde, Takstmann, Preview
