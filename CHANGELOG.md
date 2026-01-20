@@ -6,6 +6,7 @@
 - 3D Point Cloud Mapping support - BLK2GO integration, pipeline planning, and web visualization
 - Comprehensive SPOT.md documentation hub following Windsurf rules
 - Function catalog with Frontend, Backend, Database, and Infra sections
+- Forberedt backend-API for scan-opplasting og prosessering
 - 3D pipeline documentation (docs/3d-pipeline.md)
 - Scan management UI placeholder (src/pages/scans.html)
 - Project restructuring with src/, assets/, docs/ folders
@@ -17,9 +18,12 @@
 - Enhanced documentation following Windsurf single-SPOT architecture
 
 ### Fixed
-- Accessibility improvements: added placeholder to input fields
-- CSS best practices: moved inline styles to external CSS classes
-- Path references updated throughout project after restructuring
+- **Lint errors**: Moved inline styles to CSS classes in scans.html
+- **Browser support**: Added `-webkit-backdrop-filter` for Safari compatibility
+- **CSS fallbacks**: Added fallbacks for `color-mix()` in older browsers
+- **Accessibility**: Improved code quality and linting compliance
+- **Previous fixes**: Added placeholder to input fields, moved inline styles to external CSS classes
+- **Path references**: Updated throughout project after restructuring
 
 ### Docs
 - Created SPOT.md as authoritative documentation hub
