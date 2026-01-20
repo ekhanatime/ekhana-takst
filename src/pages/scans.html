@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ekhana Takst - 3D Scans</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=6" />
+</head>
+<body>
+  <header class="navbar navbar-expand-lg bg-white border-bottom px-3 py-2">
+    <div class="brand d-flex align-items-center gap-2">
+      <div class="logo">E</div>
+      <div>
+        <div class="title">Ekhana Takst</div>
+        <div class="subtitle">3D Point Cloud • Dokumentasjon</div>
+      </div>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <a class="btn btn-sm btn-outline-primary" href="../index.html">Tilbake til app</a>
+      <a class="btn btn-sm btn-outline-primary" href="changelog.html">Dokumentasjon</a>
+    </div>
+  </header>
+
+  <main class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card ekhana-card">
+          <div class="card-header">
+            <h4 class="mb-0"><i class="fa-solid fa-cube"></i> 3D Point Cloud Visualisering</h4>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <i class="fa-solid fa-info-circle"></i>
+              <strong>3D-funksjonalitet under utvikling</strong><br/>
+              Denne siden viser fremtidig støtte for Leica BLK2GO LiDAR-skanning og web-basert 3D-visualisering.
+            </div>
+
+            <div class="row g-4">
+              <div class="col-md-6">
+                <h5>📤 Scan-opplasting</h5>
+                <div class="border border-dashed rounded p-4 text-center" style="min-height: 200px;">
+                  <i class="fa-solid fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                  <p class="text-muted">Dra .e57-fil hit eller klikk for å velge</p>
+                  <button class="btn btn-outline-primary" disabled>Last opp scan</button>
+                  <small class="text-muted d-block mt-2">Støtte kommer snart</small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h5>👁️ 3D-Viewer</h5>
+                <div class="border rounded p-4 text-center bg-light" style="min-height: 200px;">
+                  <i class="fa-solid fa-cube fa-3x text-muted mb-3"></i>
+                  <p class="text-muted">3D-visualisering vil vises her</p>
+                  <div class="btn-group">
+                    <button class="btn btn-outline-secondary btn-sm" disabled>Naviger</button>
+                    <button class="btn btn-outline-secondary btn-sm" disabled>Mål</button>
+                    <button class="btn btn-outline-secondary btn-sm" disabled>Klipp</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <h5>🔧 Teknisk spesifikasjon</h5>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-microchip fa-2x text-primary mb-2"></i>
+                    <h6>Input</h6>
+                    <small class="text-muted">E57 (ISO-standard)</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-cogs fa-2x text-success mb-2"></i>
+                    <h6>Prosessering</h6>
+                    <small class="text-muted">PDAL + Entwine</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-globe fa-2x text-info mb-2"></i>
+                    <h6>Output</h6>
+                    <small class="text-muted">Potree Web-viewer</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

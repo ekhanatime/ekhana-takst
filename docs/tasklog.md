@@ -75,3 +75,15 @@
 - Forberedt commit av refactoring-endringer
 - Fikset lint-feil: lagt til placeholder på input-felt og flyttet inline CSS til ekstern fil
 - Opprettet omfattende README.md for GitHub med prosjektoversikt, funksjoner og bidragsretningslinjer
+
+---
+
+## 20. januar 2026 kl. 17:25
+
+### 3D Point Cloud Mapping - Planlegging
+- Lagt til omfattende 3D-dokumentasjon og visualisering i prosjektplanen
+- Integrert BLK2GO LiDAR-skanning støtte i arkitekturen
+- Planlagt full pipeline: E57 → LAZ → Potree web-viewer
+- Oppdaterte README.md med 3D-funksjonalitet og brukerfordeler
+- Lagt til 3D-roadmap i prosjekt-status
+- Forberedt implementasjon av web-basert 3D-visualisering uten spesialprogramvare

@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ekhana – Plattform for tilstandsrapport (NS 3600) | Bli pilotkunde</title>
+  <meta name="description" content="Mobil-first, offline-first plattform for takstbedrifter: dynamisk sjekkliste, quick-select TG, dokumentasjon, AI-utkast og ferdig rapportlenke + API." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+  <!-- Topbar -->
+  <header class="bg-white/90 backdrop-blur border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-orange-500"></div>
+        <div>
+          <div class="font-bold leading-none">Ekhana</div>
+          <div class="text-xs text-slate-600">Takstplattform</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a class="hover:text-orange-600" href="#features">Fordeler</a>
+        <a class="hover:text-orange-600" href="#walkthrough">Walkthrough</a>
+        <a class="hover:text-orange-600" href="#roi">ROI</a>
+        <a class="hover:text-orange-600" href="pages/walkthrough.html">Detaljert</a>
+        <a class="hover:text-orange-600" href="pages/investor.html">Investor</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <a href="#pilot" class="hidden sm:inline-flex px-4 py-2 rounded-xl bg-orange-500 text-white font-semibold shadow-sm hover:bg-orange-600">Bli pilotkunde</a>
+        <a href="/cdn-cgi/l/email-protection#e999869a9da98c8281888788c78786d69a9c8b838c8a9dd4ac8281888788ccdbd9ccacdbccd1d9ccd0daccdbd9b98085869d829c878d8c" class="inline-flex px-4 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50">Kontakt</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="gradient-hero">
+    <div class="max-w-6xl mx-auto px-4 py-14">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <p class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm bg-orange-50 text-orange-700 border border-orange-100">
+            <span class="font-semibold">Pilotprogram</span>
+            <span class="text-orange-700/70">for norske takstbedrifter (NS 3600 / avhendingslova)</span>
+          </p>
+          <h1 class="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">
+            Ferdig rapportlink samme dag –<br class="hidden sm:block" /> uten å bygge et nytt CRM.
+          </h1>
+          <p class="mt-5 text-lg text-slate-700 max-w-xl">
+            Ekhana er en <span class="font-semibold">feltmotor</span> for tilstandsrapport: kunden fyller inn rom/etasjer → systemet bygger <span class="font-semibold">dynamisk sjekkliste</span> → takstmann dokumenterer med bilde/lyd/video → <span class="font-semibold">quick-select TG</span> + maltekst → AI lager utkast → takstmann godkjenner → delbar lenke + API.
+          </p>
+
+          <div class="mt-7 flex flex-col sm:flex-row gap-3">
+            <a href="#pilot" class="inline-flex justify-center px-5 py-3 rounded-2xl bg-orange-500 text-white font-semibold shadow-sm hover:bg-orange-600">Bli pilotkunde</a>
+            <a href="pages/walkthrough.html" class="inline-flex justify-center px-5 py-3 rounded-2xl bg-white border border-slate-200 font-semibold hover:bg-slate-50">Se walkthrough</a>
+            <a href="pages/investor.html" class="inline-flex justify-center px-5 py-3 rounded-2xl bg-white border border-slate-200 font-semibold hover:bg-slate-50">Investorinfo</a>
+          </div>
+
+          <div class="mt-8 grid grid-cols-3 gap-4 max-w-xl">
+            <div class="bg-white rounded-2xl border border-slate-200 p-4">
+              <div class="text-xs text-slate-500">Marked (indikator)</div>
+              <div class="text-lg font-bold">91 223</div>
+              <div class="text-xs text-slate-500">boliger solgt i 2023 (Norge)</div>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-4">
+              <div class="text-xs text-slate-500">Tilbud (indikator)</div>
+              <div class="text-lg font-bold">104 069</div>
+              <div class="text-xs text-slate-500">eksisterende boliger lagt ut i 2023</div>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-4">
+              <div class="text-xs text-slate-500">Regelverk</div>
+              <div class="text-lg font-bold">NS 3600</div>
+              <div class="text-xs text-slate-500">TG-kriterier for forskrift</div>
+            </div>
+          </div>
+
+          <p class="mt-4 text-xs text-slate-500 max-w-xl">
+            Tallene over er hentet fra offentlig/autoritative kilder (se kildeliste nederst).
+          </p>
+        </div>
+
+        <!-- Hero card -->
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-bold">Hva du får</h2>
+              <p class="text-sm text-slate-600 mt-1">Et fagverktøy for dokumentasjon og rapport – ikke et prosjektstyringsverktøy.</p>
+            </div>
+            <div class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">Offline-first</div>
+          </div>
+
+          <div class="mt-5 grid gap-3">
+            <div class="flex gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center">📸</div>
+              <div>
+                <div class="font-semibold">Bevismodell</div>
+                <div class="text-sm text-slate-600">Bilder knyttes til bygningsdel/avvik, med sporing og versjonering.</div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center">⚡</div>
+              <div>
+                <div class="font-semibold">Quick-select TG + maltekst</div>
+                <div class="text-sm text-slate-600">Velg TG0–TG3 med ett trykk og få forslag som følger praksis/standard.</div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center">🧠</div>
+              <div>
+                <div class="font-semibold">AI-utkast (kontrollert)</div>
+                <div class="text-sm text-slate-600">AI skriver kun ut fra dine valg, bilder og notater – takstmann godkjenner.</div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center">🔗</div>
+              <div>
+                <div class="font-semibold">Ferdig rapportlink + API</div>
+                <div class="text-sm text-slate-600">Delbar lenke for megler/kunde, og webhooks/API til CRM/arkiv.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+            <div class="text-sm font-semibold">Passer for</div>
+            <ul class="mt-2 text-sm text-slate-700 list-disc ml-5 space-y-1">
+              <li>Takstbedrifter som skriver tilstandsrapport etter forskrift / NS 3600</li>
+              <li>Skadetakst / reklamasjon / befaring (samme motor, annet skjema)</li>
+              <li>Bedrifter som vil øke kapasitet uten å øke administrasjon</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="max-w-6xl mx-auto px-4 py-14">
+    <div class="flex items-end justify-between gap-6 flex-wrap">
+      <div>
+        <h2 class="text-3xl font-extrabold">Hvorfor dette er unikt (og ikke Monday/CRM)</h2>
+        <p class="mt-2 text-slate-700 max-w-2xl">CRM håndterer oppgaver. Ekhana håndterer <span class="font-semibold">felt-dokumentasjon med juridisk relevans</span> – struktur, bevis, sporbarhet og rapport som artefakt.</p>
+      </div>
+    </div>
+
+    <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="bg-white rounded-3xl border border-slate-200 p-6">
+        <div class="text-2xl">🧱</div>
+        <h3 class="mt-3 font-bold">Dynamisk sjekkliste</h3>
+        <p class="mt-2 text-sm text-slate-700">Kunden fyller rom/etasjer → sjekklisten genereres automatisk (2 bad = 2 bad-seksjoner). Mindre manuelt oppsett, færre glemte punkter.</p>
+      </div>
+      <div class="bg-white rounded-3xl border border-slate-200 p-6">
+        <div class="text-2xl">🧾</div>
+        <h3 class="mt-3 font-bold">Rapport = sluttprodukt</h3>
+        <p class="mt-2 text-sm text-slate-700">Godkjent rapport låses og versjoneres. Delbar lenke + PDF + metadata. Dette er ikke et vedlegg i et prosjekt; det er leveransen.</p>
+      </div>
+      <div class="bg-white rounded-3xl border border-slate-200 p-6">
+        <div class="text-2xl">📍</div>
+        <h3 class="mt-3 font-bold">Offline-first</h3>
+        <p class="mt-2 text-sm text-slate-700">Fungerer i kjeller, på loft, og ute uten dekning. Lokal lagring + trygg synk når du har nett.</p>
+      </div>
+      <div class="bg-white rounded-3xl border border-slate-200 p-6">
+        <div class="text-2xl">✅</div>
+        <h3 class="mt-3 font-bold">TG quick-select + forslag</h3>
+        <p class="mt-2 text-sm text-slate-700">Velg TG0–TG3 raskt. Systemet foreslår maltekst og tiltak basert på valg, slik at kvaliteten blir jevn – uten å “diktere” fag.</p>
+      </div>
+      <div class="bg-white rounded-3xl border border-slate-200 p-6">
+        <div class="text-2xl">🔎</div>
+        <h3 class="mt-3 font-bold">Sporbar dokumentasjon</h3>
+        <p class="mt-2 text-sm text-slate-700">Hvis undersøkelser ikke kan utføres må det dokumenteres (sporbarhet). Plattformen hjelper å gjøre dette konsekvent. </p>
+      </div>
+      <div class="bg-white rounded-3xl border border-slate-200 p-6">
+        <div class="text-2xl">🧩</div>
+        <h3 class="mt-3 font-bold">API, ikke monolitt</h3>
+        <p class="mt-2 text-sm text-slate-700">Integrer med kundens eksisterende CRM/booking/arkiv via webhooks. Du bytter ikke system – du får en motor i midten.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Walkthrough preview -->
+  <section id="walkthrough" class="bg-white border-y border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-14">
+      <div class="flex items-end justify-between gap-6 flex-wrap">
+        <div>
+          <h2 class="text-3xl font-extrabold">Walkthrough (kort)</h2>
+          <p class="mt-2 text-slate-700 max-w-2xl">Dette er flyten som gir “ferdig rapportlenke” uten kaos.</p>
+        </div>
+        <a href="pages/walkthrough.html" class="inline-flex px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800">Se detaljert walkthrough</a>
+      </div>
+
+      <div class="mt-8 grid lg:grid-cols-6 gap-4">
+        <div class="lg:col-span-2 rounded-3xl border border-slate-200 p-6">
+          <div class="text-xs text-slate-500">Steg 1</div>
+          <div class="font-bold">Oppdrag opprettes</div>
+          <ul class="mt-2 text-sm text-slate-700 list-disc ml-5 space-y-1">
+            <li>Import fra CRM eller manuell opprettelse</li>
+            <li>Automatisk kunde-lenke sendes</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-2 rounded-3xl border border-slate-200 p-6">
+          <div class="text-xs text-slate-500">Steg 2</div>
+          <div class="font-bold">Kunde fyller personalia + rom</div>
+          <ul class="mt-2 text-sm text-slate-700 list-disc ml-5 space-y-1">
+            <li>Etasjer, rom, våtrom, birom</li>
+            <li>Systemet bygger sjekkliste</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-2 rounded-3xl border border-slate-200 p-6">
+          <div class="text-xs text-slate-500">Steg 3</div>
+          <div class="font-bold">Befaring (offline)</div>
+          <ul class="mt-2 text-sm text-slate-700 list-disc ml-5 space-y-1">
+            <li>Bilde/lyd til hvert punkt</li>
+            <li>Quick-select TG + maltekst</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3 rounded-3xl border border-slate-200 p-6">
+          <div class="text-xs text-slate-500">Steg 4</div>
+          <div class="font-bold">AI-utkast + QA</div>
+          <ul class="mt-2 text-sm text-slate-700 list-disc ml-5 space-y-1">
+            <li>AI skriver ut fra fakta/valg</li>
+            <li>Sjekk for mangler før godkjenning</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3 rounded-3xl border border-slate-200 p-6">
+          <div class="text-xs text-slate-500">Steg 5</div>
+          <div class="font-bold">Godkjent rapport</div>
+          <ul class="mt-2 text-sm text-slate-700 list-disc ml-5 space-y-1">
+            <li>Låst PDF + delbar lenke</li>
+            <li>API/webhook til megler/arkiv</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROI -->
+  <section id="roi" class="max-w-6xl mx-auto px-4 py-14">
+    <div class="grid lg:grid-cols-2 gap-10 items-start">
+      <div>
+        <h2 class="text-3xl font-extrabold">ROI (regn på dine tall)</h2>
+        <p class="mt-2 text-slate-700 max-w-xl">
+          I stedet for å påstå “du sparer X”, lar vi dere sette premissene selv. Kalkulatoren under gir et årlig estimat basert på volum, tidsbruk og timekost.
+          Som referanse ser man i markedet timepriser rundt <span class="font-semibold">1 600–1 975 kr</span> hos enkelte takstaktører (varierer) – se kilder nederst.
+        </p>
+
+        <div class="mt-6 bg-white rounded-3xl border border-slate-200 p-6">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <label class="text-sm">
+              <span class="font-semibold">Rapporter per år</span>
+              <input id="reportsPerYear" type="number" min="0" value="220" class="mt-1 w-full rounded-xl border-slate-300" />
+              <div class="text-xs text-slate-500 mt-1">Typisk for 1 takstmann varierer med område/bedrift.</div>
+            </label>
+            <label class="text-sm">
+              <span class="font-semibold">Timer per rapport (i dag)</span>
+              <input id="hoursBefore" type="number" min="0" step="0.25" value="6" class="mt-1 w-full rounded-xl border-slate-300" />
+              <div class="text-xs text-slate-500 mt-1">Befaring + etterarbeid/skriving.</div>
+            </label>
+            <label class="text-sm">
+              <span class="font-semibold">Timer per rapport (med Ekhana)</span>
+              <input id="hoursAfter" type="number" min="0" step="0.25" value="4" class="mt-1 w-full rounded-xl border-slate-300" />
+              <div class="text-xs text-slate-500 mt-1">Struktur + maler + AI-utkast + QA.</div>
+            </label>
+            <label class="text-sm">
+              <span class="font-semibold">Timekost / timepris (kr)</span>
+              <input id="billableRate" type="number" min="0" step="50" value="1750" class="mt-1 w-full rounded-xl border-slate-300" />
+              <div class="text-xs text-slate-500 mt-1">Bruk din interne kost eller salgspris/time.</div>
+            </label>
+            <label class="text-sm sm:col-span-2">
+              <span class="font-semibold">Andel rapporter med ekstra etterarbeid i dag (%)</span>
+              <input id="qaRiskPct" type="range" min="0" max="30" value="10" class="mt-2 w-full" />
+              <div class="flex justify-between text-xs text-slate-500 mt-1"><span>0%</span><span>30%</span></div>
+              <div class="text-xs text-slate-500 mt-1">Typisk årsak: manglende bilde, utydelig notat, usikkerhet om rom/etasjer, eller “hva var det jeg så?”.</div>
+            </label>
+          </div>
+
+          <div class="mt-6 grid sm:grid-cols-2 gap-4">
+            <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+              <div class="text-xs text-slate-500">Sparte timer per rapport</div>
+              <div id="outHoursSavedPerReport" class="text-2xl font-extrabold">–</div>
+            </div>
+            <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+              <div class="text-xs text-slate-500">Sparte timer per år</div>
+              <div id="outHoursSavedYear" class="text-2xl font-extrabold">–</div>
+            </div>
+            <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+              <div class="text-xs text-slate-500">Ekstra kapasitet (rapporter/år)</div>
+              <div id="outExtraReports" class="text-2xl font-extrabold">–</div>
+            </div>
+            <div class="rounded-2xl bg-orange-50 border border-orange-100 p-4">
+              <div class="text-xs text-orange-700/80">Estimert sum verdi/år</div>
+              <div id="outTotalValue" class="text-2xl font-extrabold text-orange-700">–</div>
+              <div class="text-xs text-orange-700/70 mt-1">Tidsverdi + mindre rework (modellert konservativt).</div>
+            </div>
+          </div>
+
+          <div class="mt-4 text-xs text-slate-500">
+            Merk: dette er et estimat. Effekt kommer fra struktur, sjekklister, maltekst, og sporbar dokumentasjon – ikke fra at “AI gjør jobben”.
+          </div>
+        </div>
+
+        <div class="mt-6 grid gap-3">
+          <div class="text-sm font-semibold">Hvor “alltid riktig” faktisk kommer fra</div>
+          <ul class="text-sm text-slate-700 list-disc ml-5 space-y-1">
+            <li><span class="font-semibold">Tvungen fullføring</span>: ikke ferdig før kritiske punkter har dokumentasjon</li>
+            <li><span class="font-semibold">Sporbarhet</span>: hvis noe ikke kan undersøkes, må begrunnelse logges</li>
+            <li><span class="font-semibold">Standardisert språk</span>: maler hindrer tilfeldige formuleringer</li>
+            <li><span class="font-semibold">Versjonering</span>: godkjent rapport låses og kan reproduseres</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="bg-white rounded-3xl border border-slate-200 p-6">
+          <h3 class="font-bold">Charts</h3>
+          <p class="text-sm text-slate-600 mt-1">Oppdateres automatisk når du endrer input.</p>
+          <div class="mt-4">
+            <canvas id="chartTime" height="140"></canvas>
+          </div>
+          <div class="mt-6">
+            <canvas id="chartValue" height="140"></canvas>
+          </div>
+
+          <div class="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+            <div class="text-sm font-semibold">Praktisk prising (eksempel)</div>
+            <p class="text-sm text-slate-700 mt-1">
+              Start med pilot: per takstmann/mnd + “enterprise” for integrasjoner. (Detaljert på investor-siden.)
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Pilot CTA -->
+  <section id="pilot" class="bg-slate-900 text-white">
+    <div class="max-w-6xl mx-auto px-4 py-14">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <h2 class="text-3xl font-extrabold">Bli pilotkunde (betalt pilot)</h2>
+          <p class="mt-2 text-slate-200 max-w-xl">
+            Vi bygger sammen med 1–3 seriøse aktører. Du får tidlig tilgang, påvirker sjekklister/maler, og får integrasjoner som faktisk passer din drift.
+          </p>
+          <ul class="mt-5 text-slate-200 list-disc ml-5 space-y-1">
+            <li>Pilotløp 6–10 uker (inkl. onboarding og tilpasning)</li>
+            <li>Fast kontaktperson + ukentlig “feedback loop”</li>
+            <li>Leveranser: feltflyt, rapportutkast, PDF/lenke, og grunnleggende API/webhook</li>
+          </ul>
+        </div>
+
+        <div class="bg-white text-slate-900 rounded-3xl p-6">
+          <div class="text-sm font-semibold">Kontakt Ekhana AS</div>
+          <div class="mt-3 grid gap-2 text-sm">
+            <div><span class="text-slate-500">Adresse:</span> Ramstadløkka 16, 1851 Mysen</div>
+            <div><span class="text-slate-500">Telefon:</span> 940 90 151</div>
+            <div><span class="text-slate-500">E-post:</span> <a class="text-orange-600 font-semibold" href="/cdn-cgi/l/email-protection#1d6d726e695d7876757c737c337372226e687f77787e69205876757c737c382f2d38582f38252d38242e382f2d4d747172697668737978"><span class="__cf_email__" data-cfemail="3a4a55494e7a5f51525b545b145455">[email&#160;protected]</span></a></div>
+          </div>
+          <div class="mt-5 flex flex-col sm:flex-row gap-3">
+            <a href="/cdn-cgi/l/email-protection#c3b3acb0b783a6a8aba2ada2edadacfcb0b6a1a9a6a0b7fe86a8aba2ada2e6f1f3e686f1e6fbf3e6faf0e6f1f393aaafacb7a8b6ada7a6e5a1aca7bafe8ba6aae2e6f382e6f38295aae6f1f3e680f0e681fbadb0a8a6b1e6f1f3e680f0e682f6e6f1f3b0ada2a8a8a6e6f1f3acaee6f1f3b3aaafacb7a8b6ada7a6e6f1f3a5acb1e6f1f386a8aba2ada2ede6f382e6f382e6f185e6f185e6f1f38da2b5ade6f185a1a6a7b1aaa5b7e6f1f3e6f181e6f1f3a2adb7a2afafe6f1f3b7a2a8b0b7aea6adade6f1f3e6f181e6f1f3b0bab0b7a6aea6b1e6f1f3a7a6b1a6e6f1f3a1b1b6a8a6b1" class="inline-flex justify-center px-5 py-3 rounded-2xl bg-orange-500 text-white font-semibold hover:bg-orange-600">Send pilotforespørsel</a>
+            <a href="pages/investor.html" class="inline-flex justify-center px-5 py-3 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50">Investorlink</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 text-xs text-slate-400">
+        © <span id="year"></span> Ekhana AS. Bygg først motoren. Integrer deretter.
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <footer class="bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 py-10">
+      <h3 class="font-bold">Kilder (utdrag)</h3>
+      <p class="text-sm text-slate-700 mt-2">Vi bruker kilder for marked/regler. For lønn og tid varierer det mye; kalkulatoren lar dere sette egne premisser.</p>
+      <ul class="mt-4 text-sm text-slate-700 list-disc ml-5 space-y-2">
+        <li>Boligmarked: “Norwegian Housing Market Watch 2024” (OsloMet/Housing Lab) – solgte boliger i 2023 (91 223) og lagt ut (104 069). <a class="text-orange-700 font-semibold" href="https://housinglab.oslomet.no/wp-content/uploads/2024/02/NHMW2024.pdf" target="_blank" rel="noopener">PDF</a></li>
+        <li>Eiendomsomsetning (SSB) – offisiell statistikk for omsetninger og boliger i fritt salg. <a class="text-orange-700 font-semibold" href="https://www.ssb.no/bygg-bolig-og-eiendom/eiendom/statistikk/eiendomsomsetning" target="_blank" rel="noopener">SSB</a></li>
+        <li>Forskrift til avhendingslova (tryggere bolighandel) – konsekvens av å ikke innhente tilstandsrapport og krav til dokumentasjon/hulltaking m.m. <a class="text-orange-700 font-semibold" href="https://www.dibk.no/regelverk/forskrift-til-avhendingslova-tryggere-bolighandel" target="_blank" rel="noopener">DiBK</a></li>
+        <li>Lovdata: forskrift til avhendingslova (kapittel 2) – henvisning til NS 3600 for valg av tilstandsgrad. <a class="text-orange-700 font-semibold" href="https://lovdata.no/dokument/SF/forskrift/2021-06-08-1850/KAPITTEL_2" target="_blank" rel="noopener">Lovdata</a></li>
+        <li>NS 3600 oversikt (Standard Norge). <a class="text-orange-700 font-semibold" href="https://standard.no/fagomrader/bygg-anlegg-og-eiendom/teknisk-tilstandsanalyse-av-bolig---ns-3600/teknisk-tilstandsanalyse-ved-omsetning-av-bolig--ns-3600/" target="_blank" rel="noopener">Standard.no</a></li>
+        <li>Eksempel på timepris/prisstruktur i markedet (varierer): Takstm.no prisliste. <a class="text-orange-700 font-semibold" href="https://www.takstm.no/prisliste.html" target="_blank" rel="noopener">Takstm.no</a></li>
+      </ul>
+
+      <div class="mt-6 flex flex-wrap gap-3 text-sm">
+        <a class="px-4 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50" href="pages/walkthrough.html">Walkthrough</a>
+        <a class="px-4 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50" href="pages/investor.html">Investor</a>
+        <a class="px-4 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50" href="/cdn-cgi/l/email-protection#a5d5cad6d1e5c0cecdc4cbc48bcbca">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/app.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

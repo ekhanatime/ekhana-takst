@@ -114,3 +114,16 @@
 - Flyttet inline CSS til ekstern fil for bedre vedlikehold
 - Forbedret kodekvalitet og linting-samsvar
 - Opprettet omfattende README.md for GitHub-profil med prosjektoversikt, funksjoner og bidragsretningslinjer
+
+---
+
+## 20. januar 2026 kl. 17:25
+
+### 3D Point Cloud Mapping - Utvidet funksjonalitet
+- Integrert støtte for Leica BLK2GO LiDAR-skanning og 3D-dokumentasjon
+- Planlagt komplett pipeline fra E57-masterfiler til web-basert Potree-visualisering
+- Lagt til 3D-funksjoner i README.md: interaktiv navigasjon, måleverktøy, annotations
+- Oppdaterte brukerfordeler med 3D-visualisering for både takstmenn og kunder
+- Utvidet teknisk arkitektur med PDAL/Entwine-prosessering og Potree-viewer
+- Lagt til 3D-roadmap i prosjektstatus med spesifikke milepæler
+- Forberedt implementasjon av self-hosted 3D-pipeline uten eksterne avhengigheter
