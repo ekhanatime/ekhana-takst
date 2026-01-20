@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ekhana – Changelog</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css?v=6" />
+  <style>
+    .docShell{display:grid;grid-template-columns:260px 1fr;gap:16px;max-width:1200px;margin:16px auto;padding:0 16px}
+    .docSide{position:sticky;top:76px;align-self:start;border:1px solid rgba(0,0,0,.08);background:#fff;border-radius:16px;padding:12px}
+    .docSide a{display:block;padding:10px 12px;border-radius:12px;text-decoration:none;color:inherit}
+    .docSide a.active{background:rgba(0,0,0,.06);font-weight:600}
+    .docMain{border:1px solid rgba(0,0,0,.08);background:#fff;border-radius:16px;padding:18px;min-height:70vh}
+    .md h1{font-size:28px;margin:0 0 12px}
+    .md h2{font-size:20px;margin:18px 0 10px}
+    .md h3{font-size:16px;margin:14px 0 8px}
+    .md p{margin:10px 0;line-height:1.55}
+    .md ul{margin:8px 0 12px 20px}
+    .md li{margin:6px 0}
+    .md code{background:rgba(0,0,0,.06);padding:2px 6px;border-radius:8px}
+    .md pre{background:rgba(0,0,0,.06);padding:12px 14px;border-radius:14px;overflow:auto}
+    .md hr{border:none;border-top:1px solid rgba(0,0,0,.08);margin:16px 0}
+    @media (max-width: 920px){.docShell{grid-template-columns:1fr}.docSide{position:relative;top:0}}
+  </style>
+</head>
+<body>
+  <header class="navbar navbar-expand-lg bg-white border-bottom px-3 py-2 sticky-top">
+    <div class="brand">
+      <div class="logo">E</div>
+      <div>
+        <div class="title">Ekhana Takst</div>
+        <div class="subtitle">Dokumentasjon • Changelog</div>
+      </div>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <a class="btn btn-outline-primary btn-sm" href="./index.html">Tilbake til app</a>
+    </div>
+  </header>
+
+  <div class="docShell">
+    <aside class="docSide" aria-label="Meny">
+      <a href="#changelog" data-doc="changelog" class="active">Changelog</a>
+      <a href="#project" data-doc="project">Prosjektbeskrivelse</a>
+      <a href="#tasklog" data-doc="tasklog">Tasklog</a>
+      <hr/>
+      <div class="sideHint">Tips: Oppdater <code>changelog.md</code> for å legge til nye endringer.</div>
+    </aside>
+
+    <main class="docMain">
+      <div id="doc" class="md" aria-live="polite"></div>
+    </main>
+  </div>
+
+  <script src="js/changelog.js?v=6" defer></script>
+  <script type="module">
+    // Mermaid support (optional). If the CDN is blocked, the page still renders.
+    try {
+      const m = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
+      m.default.initialize({ startOnLoad: true });
+    } catch (e) {}
+  </script>
+</body>
+</html>

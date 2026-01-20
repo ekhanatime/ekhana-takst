@@ -1,0 +1,338 @@
+{
+  "name": "property_object_generator_rules",
+  "version": "1.0.0",
+  "locale": "nb-NO",
+  "last_updated": "19. januar 2026 kl. 13:06",
+  "consistency": {
+    "canonical_entities": [
+      "assignment",
+      "property",
+      "rooms",
+      "building_parts",
+      "checklist_items",
+      "observations",
+      "media",
+      "documents"
+    ],
+    "canonical_ids": {
+      "room_id": "room_{floor_index}_{room_type_slug}_{ordinal}",
+      "checklist_item_id": "cli_{scope}_{target_id}_{item_code}",
+      "observation_id": "obs_{checklist_item_id}_{ordinal}",
+      "media_id": "med_{observation_id}_{kind}_{ordinal}",
+      "document_id": "doc_{source}_{ordinal}"
+    },
+    "slug_rules": {
+      "lowercase": true,
+      "replace_spaces_with": "_",
+      "remove_chars_regex": "[^a-z0-9_æøå]",
+      "normalize_diacritics": false,
+      "note": "Behold æøå i slugs for NB-NO, men fjern tegn som /() osv."
+    },
+    "enum_sources": {
+      "property_type": "fullprofile.enums.property_type",
+      "room_type": "fullprofile.enums.room_type",
+      "building_parts_catalog": "fullprofile.building_parts_catalog",
+      "checklist_items_catalog": "fullprofile.checklist_items_catalog"
+    }
+  },
+  "inputs_from_client": {
+    "required": [
+      "client.name",
+      "client.phone",
+      "client.email",
+      "property.address.full",
+      "property.type",
+      "property.build_year",
+      "property.floors.count"
+    ],
+    "recommended": [
+      "property.identifier.gnr",
+      "property.identifier.bnr",
+      "property.ownership_type",
+      "property.areas.bra",
+      "property.areas.p_rom",
+      "property.areas.plot_area"
+    ],
+    "pre_inspection_questionnaire": {
+      "flow": [
+        {
+          "step": "Personalinfo",
+          "fields": [
+            "client.name",
+            "client.phone",
+            "client.email"
+          ],
+          "notes": "Sendes som lenke til oppdragsgiver/eier ved opprettelse av oppdrag."
+        },
+        {
+          "step": "Boligstruktur",
+          "fields": [
+            "property.type",
+            "property.build_year",
+            "property.floors.count",
+            "structure.rooms_by_floor",
+            "structure.has_basement",
+            "structure.has_attic",
+            "structure.has_garage",
+            "structure.has_balcony_terrace"
+          ],
+          "rooms_by_floor_schema": {
+            "type": "array",
+            "items": {
+              "floor_index": "integer",
+              "floor_label": "string",
+              "rooms": {
+                "type": "array",
+                "items": {
+                  "type": "enum(room_type)",
+                  "count": "integer",
+                  "size_hints": "array[string]",
+                  "wet_room_flags": "array[boolean]"
+                }
+              }
+            }
+          },
+          "defaults": {
+            "structure.has_basement": false,
+            "structure.has_attic": false,
+            "structure.has_garage": false,
+            "structure.has_balcony_terrace": false
+          }
+        },
+        {
+          "step": "Samtykke",
+          "fields": [
+            "consents.boligmappa.share_access",
+            "consents.data_processing",
+            "consents.ai_assistance"
+          ],
+          "notes": "Boligmappa krever normalt at eier deler tilgang til takstmann. Logg samtykke med tidspunkt."
+        }
+      ]
+    }
+  },
+  "property_type_rules": {
+    "include_building_parts": {
+      "Enebolig": "ALL",
+      "Tomannsbolig": "ALL",
+      "Rekkehus": [
+        "DOKUMENTASJON",
+        "TOMT_OG_TERRRENG",
+        "DRENERING",
+        "GRUNN_OG_FUNDAMENT",
+        "GRUNNMUR_UTV",
+        "GRUNNMUR_INNV",
+        "YTTRE_VEGGER",
+        "VINDUER_DORER",
+        "BALKONG_TERRASSE",
+        "TAKTEKKING",
+        "TAKKONSTRUKSJON",
+        "TAKRENNER_BESLAG",
+        "PIPE_ILDSTED",
+        "ETASJESKILLER",
+        "INNV_VEGGER",
+        "GULV",
+        "HIMLING",
+        "TRAPP",
+        "EL_ANLEGG",
+        "VVS",
+        "VENTILASJON",
+        "OPPVARMING",
+        "BRANNSIKKERHET"
+      ],
+      "Leilighet": [
+        "DOKUMENTASJON",
+        "INNV_VEGGER",
+        "GULV",
+        "HIMLING",
+        "TRAPP",
+        "EL_ANLEGG",
+        "VVS",
+        "VENTILASJON",
+        "OPPVARMING",
+        "BRANNSIKKERHET",
+        "VINDUER_DORER",
+        "BALKONG_TERRASSE",
+        "VATRROM_GENERELT",
+        "KJOKKEN_GENERELT"
+      ],
+      "Fritidsbolig": "ALL",
+      "Næring": "ALL",
+      "Annet": "ALL"
+    },
+    "notes": {
+      "Leilighet": [
+        "Tomt/drenering/tak/yttervegger kan være felles ansvar. Systemet skal la takstmann velge 'Ikke relevant' eller 'Ikke undersøkt' med begrunnelse."
+      ]
+    }
+  },
+  "room_generation": {
+    "rules": [
+      {
+        "name": "Generate rooms from rooms_by_floor",
+        "algorithm": [
+          "For each floor in structure.rooms_by_floor:",
+          "  For each room spec: create N rooms with deterministic room_id per consistency.canonical_ids.room_id.",
+          "  Assign floor_index, optional name 'Bad 1', 'Soverom 2' etc.",
+          "  Determine is_wet_room: if room type is in [Bad,Vaskerom] => true, else use wet_room_flags if provided."
+        ]
+      },
+      {
+        "name": "Derived structure flags",
+        "algorithm": [
+          "If structure.has_basement=true and no explicit 'Kjeller' rooms provided, add one Kjeller room with size_hint='ukjent'.",
+          "If structure.has_attic=true and no explicit 'Loft' room provided, add one Loft room with size_hint='ukjent'.",
+          "If structure.has_garage=true and no explicit 'Garasje' room provided, add one Garasje room with size_hint='ukjent'.",
+          "If structure.has_balcony_terrace=true and no explicit 'Balkong/Terrasse' room provided, add one Balkong/Terrasse room."
+        ]
+      }
+    ],
+    "naming": {
+      "ordinal_prefix": {
+        "Bad": "Bad",
+        "Soverom": "Soverom",
+        "WC": "WC",
+        "Vaskerom": "Vaskerom",
+        "Bod": "Bod",
+        "Stue": "Stue",
+        "Kjøkken": "Kjøkken"
+      },
+      "default_name_format": "{prefix} {ordinal}"
+    }
+  },
+  "checklist_generation": {
+    "rules": [
+      {
+        "name": "Building part checklist items",
+        "algorithm": [
+          "Select building parts per property_type_rules.include_building_parts[property.type].",
+          "For each selected building_part_code:",
+          "  pick checklist_items_catalog where scope='BUILDING_PART' and building_part_code == code.",
+          "  instantiate checklist items with checklist_item_id = cli_BUILDING_PART_{building_part_code}_{item_code}."
+        ]
+      },
+      {
+        "name": "Room checklist items",
+        "algorithm": [
+          "For each room:",
+          "  Determine mandatory_checks via fullprofile.roomtype_catalog[room.type].mandatory_checks (if present).",
+          "  For each mandatory item_code:",
+          "    instantiate checklist item with checklist_item_id = cli_ROOM_{room.room_id}_{item_code}.",
+          "  Additionally, include generic room checks for non-special rooms: ROM_OVERFLATER, ROM_VENTILASJON (if not already present)."
+        ]
+      }
+    ],
+    "defaults": {
+      "checklist_item.required": true,
+      "checklist_item.status": "OK"
+    }
+  },
+  "observation_and_media": {
+    "observation_defaults": {
+      "tg": "TG0",
+      "finding": "",
+      "cause": "",
+      "consequence": "",
+      "action": "",
+      "action_priority": null,
+      "action_timeframe": null
+    },
+    "media_capture": {
+      "per_observation": [
+        "photo",
+        "note",
+        "audio"
+      ],
+      "voice_to_text": {
+        "store_audio": true,
+        "store_transcript": true
+      },
+      "photo_requirements": {
+        "for_tg": {
+          "TG2": true,
+          "TG3": true
+        }
+      }
+    }
+  },
+  "ai_evaluation_flow": {
+    "per_room": {
+      "trigger": [
+        "manual_button",
+        "on_room_complete"
+      ],
+      "inputs": [
+        "room",
+        "checklist_items(room)",
+        "observations(room)",
+        "media(room)"
+      ],
+      "output": [
+        "draft_text_blocks",
+        "missing_data",
+        "risk_flags"
+      ],
+      "guardrails": [
+        "AI may only reference fields present in observations/media captions/transcripts.",
+        "AI must list missing required checks if any status='Ikke_undersøkt' without reason.",
+        "AI must not state conclusions about hidden defects."
+      ]
+    },
+    "per_building_part": {
+      "trigger": [
+        "manual_button",
+        "on_section_complete"
+      ],
+      "inputs": [
+        "building_part",
+        "checklist_items(part)",
+        "observations(part)",
+        "documents_refs"
+      ],
+      "output": [
+        "draft_text_blocks",
+        "missing_data",
+        "risk_flags"
+      ]
+    }
+  },
+  "offline_first_sync": {
+    "local_storage": {
+      "entities": [
+        "assignment",
+        "property",
+        "rooms",
+        "checklist_items",
+        "observations",
+        "media_metadata",
+        "documents_metadata"
+      ],
+      "media_blobs": "store locally, upload when online",
+      "conflict_strategy": "last_writer_wins for drafts; server-authoritative for publish",
+      "idempotency": "client generates UUID for mutations + sends idempotency_key"
+    },
+    "sync_contract": {
+      "endpoints": [
+        "POST /sync/push",
+        "GET /sync/pull?since=<cursor>",
+        "POST /media/upload (resumable)",
+        "POST /ai/evaluate/room",
+        "POST /ai/evaluate/building-part",
+        "POST /report/publish"
+      ],
+      "events": [
+        "assignment.created",
+        "client.questionnaire.completed",
+        "consent.boligmappa.granted",
+        "room.completed",
+        "ai.draft.generated",
+        "report.published"
+      ]
+    }
+  },
+  "mermaid": {
+    "flow": "flowchart TD\n  A[Oppdrag opprettes] --> B[Lenke til kunde: personalia + boligstruktur]\n  B --> C{Samtykke Boligmappa?}\n  C -- Ja --> D[Importer dokumentasjon/FDV (refs)]\n  C -- Nei --> E[Manuell dokumentopplasting]\n  D --> F[Generer bolig-objekt: etasjer/rom]\n  E --> F\n  F --> G[Generer sjekklister per rom + bygningsdel]\n  G --> H[Inspeksjon: foto/notat/tale->tekst]\n  H --> I[AI-evaluering per rom/bygningsdel]\n  I --> J[Utkast til rapport + mangelliste]\n  J --> K[Takstmann kvalitetssikrer]\n  K --> L[Publiser rapport (PDF/lenke/API)]\n",
+    "sequence": "sequenceDiagram\n  participant Kunde\n  participant App\n  participant API\n  participant AI\n  Kunde->>App: Fyller personalia + boligstruktur\n  App->>API: POST questionnaire.completed\n  Kunde->>App: Gir samtykke Boligmappa (dersom tilgjengelig)\n  App->>API: POST consent.boligmappa.granted\n  API->>API: Knytter dokument-referanser til oppdrag\n  App->>API: POST generate.object (rooms/floors)\n  API->>App: Return rooms + checklists\n  App->>API: Push observasjoner + media metadata (offline-sync)\n  App->>AI: Evaluate room (structured inputs)\n  AI-->>App: Draft text + missing_data\n  App->>API: Save draft blocks\n  App->>API: Publish report\n",
+    "class": "classDiagram\n  class Assignment {\n    +string assignment_id\n    +string tenant_id\n    +date date_inspected\n    +Inspector inspector\n    +Client client\n  }\n  class Property {\n    +Address address\n    +Identifier identifier\n    +string type\n    +int build_year\n    +Floors floors\n  }\n  class Room {\n    +string room_id\n    +string type\n    +int floor_index\n    +bool is_wet_room\n  }\n  class ChecklistItem {\n    +string checklist_item_id\n    +string scope\n    +string item_code\n    +string status\n  }\n  class Observation {\n    +string observation_id\n    +string checklist_item_id\n    +string tg\n  }\n  class Media {\n    +string media_id\n    +string observation_id\n    +string kind\n  }\n\n  Assignment --> Property\n  Property --> Room\n  Room --> ChecklistItem\n  ChecklistItem --> Observation\n  Observation --> Media\n"
+  }
+}

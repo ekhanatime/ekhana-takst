@@ -1,0 +1,56 @@
+{
+  "assignment": {
+    "assignment_id": "DEMO-001",
+    "tenant_id": "pilot-tenant",
+    "status": "DRAFT",
+    "date_created": "2026-01-19T13:06:00+01:00",
+    "date_inspected": "2026-01-19",
+    "inspector": {
+      "name": "Ekhana Demo",
+      "company": "Ekhana AS",
+      "orgnr": "",
+      "phone": "94090151",
+      "email": "post@ekhana.no"
+    },
+    "client": {
+      "name": "Demo Kunde",
+      "phone": "",
+      "email": "",
+      "role": "eier"
+    }
+  },
+  "property": {
+    "address": {
+      "full": "Eksempelgata 12, 1851 Mysen",
+      "street": "Eksempelgata 12",
+      "postal_code": "1851",
+      "city": "Mysen",
+      "municipality": "Indre Østfold"
+    },
+    "type": "Enebolig",
+    "ownership_type": "Selveier",
+    "build_year": 1988,
+    "floors": { "count": 2, "labels": ["Kjeller", "1. etg"] },
+    "areas": { "bra": 165, "p_rom": 145, "tba": 20, "plot_area": 620 },
+    "construction": {
+      "foundation": "Betong",
+      "roof": "Teglstein",
+      "facade": "Trepanel",
+      "windows_doors": "2-lags eldre vinduer",
+      "drainage": "Ukjent",
+      "ventilation": "Naturlig",
+      "heating": "Elektrisk + vedovn",
+      "water_supply": "Kommunal",
+      "sewage": "Kommunal"
+    },
+    "renovations": []
+  },
+  "rooms": [
+    { "room_id": "gang1", "type": "Entré/Gang", "name": "Gang", "floor_index": 1, "size_hint": "middels", "is_wet_room": false },
+    { "room_id": "stue1", "type": "Stue", "name": "Stue", "floor_index": 1, "size_hint": "stort", "is_wet_room": false },
+    { "room_id": "kjokken1", "type": "Kjøkken", "name": "Kjøkken", "floor_index": 1, "size_hint": "middels", "is_wet_room": false },
+    { "room_id": "bad1", "type": "Bad", "name": "Hovedbad", "floor_index": 1, "size_hint": "middels", "is_wet_room": true },
+    { "room_id": "soverom1", "type": "Soverom", "name": "Soverom 1", "floor_index": 1, "size_hint": "middels", "is_wet_room": false },
+    { "room_id": "kjeller1", "type": "Kjeller", "name": "Kjeller", "floor_index": 0, "size_hint": "stort", "is_wet_room": false }
+  ]
+}

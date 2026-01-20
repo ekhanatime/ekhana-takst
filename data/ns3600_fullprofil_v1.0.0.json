@@ -1,0 +1,1798 @@
+{
+  "profile": "NS3600_Tilstandsrapport_Fullprofil",
+  "version": "1.0.0",
+  "locale": "nb-NO",
+  "last_updated": "19. januar 2026 kl. 13:06",
+  "principles": {
+    "ai_never_invents": true,
+    "ai_outputs_are_suggestions": true,
+    "tg_scale": [
+      "TG0",
+      "TG1",
+      "TG2",
+      "TG3"
+    ],
+    "tg_requires_reason": [
+      "TG2",
+      "TG3"
+    ],
+    "tg3_requires_action": true,
+    "not_inspected_requires_reason": true,
+    "evidence_first": true,
+    "audit_required": true
+  },
+  "report_structure": {
+    "mandatory_sections": [
+      "Oppdragsinformasjon",
+      "Eiendomsidentifikasjon",
+      "Beskrivelse_av_bygg",
+      "Forutsetninger_og_avgrensninger",
+      "Befaringsmetode",
+      "Sammendrag",
+      "Bygningsdeler_og_rom",
+      "Avvik_og_tiltak",
+      "Vedlegg_og_dokumentasjon",
+      "Signatur_og_revisjon"
+    ],
+    "mandatory_global_fields": [
+      "assignment.assignment_id",
+      "assignment.date_inspected",
+      "assignment.inspector.name",
+      "assignment.inspector.company",
+      "property.address.full",
+      "property.type",
+      "property.build_year",
+      "property.floors.count",
+      "report.assumptions",
+      "report.limitations",
+      "report.method"
+    ],
+    "global_text_blocks": {
+      "assumptions_default": [
+        "Rapporten bygger på visuell kontroll og tilgjengelige opplysninger på befaringstidspunktet.",
+        "Skjulte konstruksjoner og utilgjengelige flater er ikke kontrollert.",
+        "Opplysninger fra eier/oppdragsgiver er ikke dokumentkontrollert med mindre dette fremgår av dokumentasjonsdelen."
+      ],
+      "limitations_default": [
+        "Det er ikke utført inngrep i konstruksjoner eller destruktive undersøkelser.",
+        "Tekniske installasjoner er ikke funksjonstestet utover enkel visuell kontroll der mulig.",
+        "Målinger er utført som indikasjon og kan kreve videre undersøkelser ved avvik."
+      ],
+      "method_default": [
+        "Visuell befaring med systematisk registrering per rom og bygningsdel.",
+        "Fotodokumentasjon av avvik og relevante forhold.",
+        "Vurdering av tilstandsgrad (TG0–TG3) og anbefalte tiltak ved behov."
+      ]
+    }
+  },
+  "field_rules": {
+    "tg2_tg3_requires": [
+      "observation.finding",
+      "observation.cause",
+      "observation.consequence"
+    ],
+    "tg3_additionally_requires": [
+      "observation.action",
+      "observation.action_priority",
+      "observation.action_timeframe"
+    ],
+    "not_inspected_requires": [
+      "observation.not_inspected_reason"
+    ],
+    "requires_media_for": {
+      "TG2": [
+        "photo"
+      ],
+      "TG3": [
+        "photo"
+      ]
+    },
+    "voice_to_text": {
+      "store_original_audio": true,
+      "store_transcript": true,
+      "transcript_required_for_ai_eval": false
+    }
+  },
+  "enums": {
+    "property_type": [
+      "Enebolig",
+      "Tomannsbolig",
+      "Rekkehus",
+      "Leilighet",
+      "Fritidsbolig",
+      "Næring",
+      "Annet"
+    ],
+    "ownership_type": [
+      "Selveier",
+      "Borettslag",
+      "Aksje",
+      "Sameie",
+      "Annet"
+    ],
+    "inspection_status": [
+      "OK",
+      "Avvik",
+      "Ikke_undersøkt",
+      "Ikke_tilgjengelig",
+      "Ikke_relevant"
+    ],
+    "action_priority": [
+      "Lav",
+      "Middels",
+      "Høy",
+      "Kritisk"
+    ],
+    "action_timeframe": [
+      "0-1_mnd",
+      "1-6_mnd",
+      "6-12_mnd",
+      "1-3_år",
+      "3-5_år",
+      "Ved_anledning"
+    ],
+    "moisture_indication": [
+      "Ingen",
+      "Svakt",
+      "Middels",
+      "Sterkt",
+      "Ikke_målt"
+    ],
+    "media_kind": [
+      "photo",
+      "video",
+      "audio",
+      "note"
+    ],
+    "room_type": [
+      "Entré/Gang",
+      "Stue",
+      "Kjøkken",
+      "Soverom",
+      "Bad",
+      "WC",
+      "Vaskerom",
+      "Teknisk_rom",
+      "Bod",
+      "Kjeller",
+      "Loft",
+      "Trapp",
+      "Garasje",
+      "Balkong/Terrasse",
+      "Uthus/Anneks",
+      "Fellesareal",
+      "Annet"
+    ],
+    "not_inspected_reason_presets": [
+      "Ikke tilgjengelig (låst/ingen nøkkel)",
+      "Skjult bak innredning/møbler",
+      "Tildekket av snø/is/vegetasjon",
+      "Værforhold (regn/snø/lys) hindret kontroll",
+      "HMS/sikkerhet – ikke forsvarlig å inspisere",
+      "Krever inngrep/destruktiv undersøkelse",
+      "Ikke del av oppdraget",
+      "Eier avslo tilgang"
+    ],
+    "documentation_source": [
+      "Boligmappa",
+      "Kunde",
+      "Takstmann",
+      "Offentlig_register",
+      "Megler",
+      "Annet"
+    ]
+  },
+  "schemas": {
+    "assignment": {
+      "assignment_id": {
+        "type": "string",
+        "required": true
+      },
+      "tenant_id": {
+        "type": "string",
+        "required": true
+      },
+      "status": {
+        "type": "string",
+        "required": true
+      },
+      "date_created": {
+        "type": "string",
+        "format": "date-time",
+        "required": true
+      },
+      "date_inspected": {
+        "type": "string",
+        "format": "date",
+        "required": true
+      },
+      "inspector": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "company": {
+          "type": "string",
+          "required": true
+        },
+        "orgnr": {
+          "type": "string",
+          "required": false
+        },
+        "phone": {
+          "type": "string",
+          "required": false
+        },
+        "email": {
+          "type": "string",
+          "required": false
+        },
+        "certifications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": false
+        }
+      },
+      "client": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "phone": {
+          "type": "string",
+          "required": true
+        },
+        "email": {
+          "type": "string",
+          "required": true
+        },
+        "role": {
+          "type": "string",
+          "required": false,
+          "notes": "eier/oppdragsgiver/megler"
+        }
+      }
+    },
+    "property": {
+      "address": {
+        "full": {
+          "type": "string",
+          "required": true
+        },
+        "street": {
+          "type": "string",
+          "required": false
+        },
+        "postal_code": {
+          "type": "string",
+          "required": false
+        },
+        "city": {
+          "type": "string",
+          "required": false
+        },
+        "municipality": {
+          "type": "string",
+          "required": false
+        }
+      },
+      "identifier": {
+        "gnr": {
+          "type": "integer",
+          "required": false
+        },
+        "bnr": {
+          "type": "integer",
+          "required": false
+        },
+        "fnr": {
+          "type": "integer",
+          "required": false
+        },
+        "snr": {
+          "type": "integer",
+          "required": false
+        }
+      },
+      "type": {
+        "type": "enum",
+        "values": "property_type",
+        "required": true
+      },
+      "ownership_type": {
+        "type": "enum",
+        "values": "ownership_type",
+        "required": false
+      },
+      "build_year": {
+        "type": "integer",
+        "required": true
+      },
+      "floors": {
+        "count": {
+          "type": "integer",
+          "required": true
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": false
+        }
+      },
+      "areas": {
+        "bra": {
+          "type": "number",
+          "required": false
+        },
+        "p_rom": {
+          "type": "number",
+          "required": false
+        },
+        "tba": {
+          "type": "number",
+          "required": false
+        },
+        "plot_area": {
+          "type": "number",
+          "required": false
+        }
+      },
+      "construction": {
+        "foundation": {
+          "type": "string",
+          "required": false
+        },
+        "roof": {
+          "type": "string",
+          "required": false
+        },
+        "facade": {
+          "type": "string",
+          "required": false
+        },
+        "windows_doors": {
+          "type": "string",
+          "required": false
+        },
+        "drainage": {
+          "type": "string",
+          "required": false
+        },
+        "ventilation": {
+          "type": "string",
+          "required": false
+        },
+        "heating": {
+          "type": "string",
+          "required": false
+        },
+        "water_supply": {
+          "type": "string",
+          "required": false
+        },
+        "sewage": {
+          "type": "string",
+          "required": false
+        }
+      },
+      "renovations": {
+        "type": "array",
+        "required": false,
+        "items": {
+          "year": {
+            "type": "integer",
+            "required": true
+          },
+          "scope": {
+            "type": "string",
+            "required": true,
+            "notes": "bad/kjøkken/tak/drenering osv."
+          },
+          "description": {
+            "type": "string",
+            "required": false
+          },
+          "document_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "required": false
+          }
+        }
+      }
+    },
+    "room": {
+      "room_id": {
+        "type": "string",
+        "required": true
+      },
+      "type": {
+        "type": "enum",
+        "values": "room_type",
+        "required": true
+      },
+      "name": {
+        "type": "string",
+        "required": false,
+        "notes": "Bad 1, Soverom 2, osv."
+      },
+      "floor_index": {
+        "type": "integer",
+        "required": true
+      },
+      "size_hint": {
+        "type": "string",
+        "required": false,
+        "notes": "lite/middels/stort eller m2"
+      },
+      "is_wet_room": {
+        "type": "boolean",
+        "required": false
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "checklist_item": {
+      "checklist_item_id": {
+        "type": "string",
+        "required": true
+      },
+      "scope": {
+        "type": "string",
+        "required": true,
+        "notes": "ROOM|BUILDING_PART"
+      },
+      "room_id": {
+        "type": "string",
+        "required": false
+      },
+      "building_part_code": {
+        "type": "string",
+        "required": false
+      },
+      "item_code": {
+        "type": "string",
+        "required": true
+      },
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "required": {
+        "type": "boolean",
+        "required": true
+      },
+      "status": {
+        "type": "enum",
+        "values": "inspection_status",
+        "required": true
+      },
+      "guidance": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "observation": {
+      "observation_id": {
+        "type": "string",
+        "required": true
+      },
+      "checklist_item_id": {
+        "type": "string",
+        "required": true
+      },
+      "tg": {
+        "type": "enum",
+        "values": "tg_scale",
+        "required": true
+      },
+      "finding": {
+        "type": "string",
+        "required": false
+      },
+      "cause": {
+        "type": "string",
+        "required": false
+      },
+      "consequence": {
+        "type": "string",
+        "required": false
+      },
+      "action": {
+        "type": "string",
+        "required": false
+      },
+      "action_priority": {
+        "type": "enum",
+        "values": "action_priority",
+        "required": false
+      },
+      "action_timeframe": {
+        "type": "enum",
+        "values": "action_timeframe",
+        "required": false
+      },
+      "not_inspected_reason": {
+        "type": "string",
+        "required": false
+      },
+      "moisture": {
+        "indication": {
+          "type": "enum",
+          "values": "moisture_indication",
+          "required": false
+        },
+        "measurement": {
+          "type": "string",
+          "required": false,
+          "notes": "målepunkt/metode/verdi"
+        }
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "media": {
+      "media_id": {
+        "type": "string",
+        "required": true
+      },
+      "observation_id": {
+        "type": "string",
+        "required": true
+      },
+      "kind": {
+        "type": "enum",
+        "values": "media_kind",
+        "required": true
+      },
+      "captured_at": {
+        "type": "string",
+        "format": "date-time",
+        "required": true
+      },
+      "local_hash": {
+        "type": "string",
+        "required": false
+      },
+      "storage_key": {
+        "type": "string",
+        "required": false
+      },
+      "caption": {
+        "type": "string",
+        "required": false
+      },
+      "transcript": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "ai_eval_request": {
+      "scope": {
+        "type": "string",
+        "required": true,
+        "notes": "ROOM|BUILDING_PART"
+      },
+      "room_id": {
+        "type": "string",
+        "required": false
+      },
+      "building_part_code": {
+        "type": "string",
+        "required": false
+      },
+      "inputs": {
+        "checklist_items": {
+          "type": "array",
+          "required": true
+        },
+        "observations": {
+          "type": "array",
+          "required": true
+        },
+        "media_refs": {
+          "type": "array",
+          "required": false
+        },
+        "documents_refs": {
+          "type": "array",
+          "required": false
+        }
+      },
+      "constraints": {
+        "ai_may_only_use_given_facts": {
+          "type": "boolean",
+          "required": true
+        },
+        "flag_missing_data": {
+          "type": "boolean",
+          "required": true
+        }
+      }
+    }
+  },
+  "building_parts_catalog": [
+    {
+      "code": "DOKUMENTASJON",
+      "name": "Dokumentasjon og opplysninger",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:FileText"
+      }
+    },
+    {
+      "code": "TOMT_OG_TERRRENG",
+      "name": "Tomt, terreng og overflateavrenning",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:TreePine"
+      }
+    },
+    {
+      "code": "DRENERING",
+      "name": "Drenering og fuktsikring mot grunn",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Waves"
+      }
+    },
+    {
+      "code": "GRUNN_OG_FUNDAMENT",
+      "name": "Grunn og fundamenter",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Landmark"
+      }
+    },
+    {
+      "code": "GRUNNMUR_UTV",
+      "name": "Grunnmur (utvendig)",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:BrickWall"
+      }
+    },
+    {
+      "code": "GRUNNMUR_INNV",
+      "name": "Grunnmur (innvendig)",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:BrickWall"
+      }
+    },
+    {
+      "code": "YTTRE_VEGGER",
+      "name": "Yttervegger og fasade",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:PanelsTopLeft"
+      }
+    },
+    {
+      "code": "VINDUER_DORER",
+      "name": "Vinduer og ytterdører",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:AppWindow"
+      }
+    },
+    {
+      "code": "BALKONG_TERRASSE",
+      "name": "Balkonger, terrasser og rekkverk",
+      "required": false,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Sun"
+      }
+    },
+    {
+      "code": "GARASJE_UTHUS",
+      "name": "Garasje/uthus/anneks (konstruksjon)",
+      "required": false,
+      "scope": "BUILDING_PART"
+    },
+    {
+      "code": "TAKTEKKING",
+      "name": "Taktekking",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Home"
+      }
+    },
+    {
+      "code": "TAKKONSTRUKSJON",
+      "name": "Takkonstruksjon og undertak",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Home"
+      }
+    },
+    {
+      "code": "TAKRENNER_BESLAG",
+      "name": "Takrenner, nedløp og beslag",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:ArrowDownToLine"
+      }
+    },
+    {
+      "code": "PIPE_ILDSTED",
+      "name": "Pipe og ildsted",
+      "required": false,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Flame"
+      }
+    },
+    {
+      "code": "LOFT",
+      "name": "Loft (konstruksjon, lufting, isolasjon)",
+      "required": false,
+      "scope": "BUILDING_PART"
+    },
+    {
+      "code": "ETASJESKILLER",
+      "name": "Etasjeskillere",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Layers"
+      }
+    },
+    {
+      "code": "INNV_VEGGER",
+      "name": "Innvendige vegger",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:SquareDashed"
+      }
+    },
+    {
+      "code": "GULV",
+      "name": "Gulvkonstruksjoner og overflater",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Grid3X3"
+      }
+    },
+    {
+      "code": "HIMLING",
+      "name": "Himlinger og innvendige tak",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Square"
+      }
+    },
+    {
+      "code": "TRAPP",
+      "name": "Trapper og rekkverk (innvendig)",
+      "required": false,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Steps"
+      }
+    },
+    {
+      "code": "VATRROM_GENERELT",
+      "name": "Våtrom (generelt)",
+      "required": false,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Droplets"
+      }
+    },
+    {
+      "code": "KJOKKEN_GENERELT",
+      "name": "Kjøkken (generelt)",
+      "required": false,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:CookingPot"
+      }
+    },
+    {
+      "code": "EL_ANLEGG",
+      "name": "Elektrisk anlegg (visuell kontroll)",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Zap"
+      }
+    },
+    {
+      "code": "VVS",
+      "name": "Vann- og avløpsinstallasjoner",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Pipe"
+      }
+    },
+    {
+      "code": "VENTILASJON",
+      "name": "Ventilasjon",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:Wind"
+      }
+    },
+    {
+      "code": "OPPVARMING",
+      "name": "Oppvarming",
+      "required": true,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:ThermometerSun"
+      }
+    },
+    {
+      "code": "BRANNSIKKERHET",
+      "name": "Brannsikkerhet (generelle forhold)",
+      "required": false,
+      "scope": "BUILDING_PART",
+      "ui": {
+        "icon": "lucide:ShieldAlert"
+      }
+    }
+  ],
+  "roomtype_catalog": {
+    "Bad": {
+      "is_wet_room": true,
+      "mandatory_checks": [
+        "BAD_OVERFLATER",
+        "BAD_MEMBRAN_INDIKASJON",
+        "BAD_ROR_GJENNOMFORINGER",
+        "BAD_SLUK",
+        "BAD_FALL_TIL_SLUK",
+        "BAD_VENTILASJON",
+        "BAD_INNREDNING",
+        "BAD_FUKTINDIKASJON"
+      ]
+    },
+    "WC": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "WC_OVERFLATER",
+        "WC_VENTILASJON",
+        "WC_ROR"
+      ]
+    },
+    "Vaskerom": {
+      "is_wet_room": true,
+      "mandatory_checks": [
+        "VASK_OVERFLATER",
+        "VASK_SLUK",
+        "VASK_VENTILASJON",
+        "VASK_ROR",
+        "VASK_FUKTINDIKASJON"
+      ]
+    },
+    "Kjøkken": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "KJOKKEN_AVTREKK",
+        "KJOKKEN_VANNINSTALLASJON",
+        "KJOKKEN_FUKTINDIKASJON",
+        "KJOKKEN_INNREDNING"
+      ]
+    },
+    "Kjeller": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "KJELLER_FUKTINDIKASJON",
+        "KJELLER_LUKT",
+        "KJELLER_VEGGER_GULV",
+        "KJELLER_VENTILASJON",
+        "KJELLER_DRENERINGSINDIKASJON"
+      ]
+    },
+    "Loft": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "LOFT_LUFTING",
+        "LOFT_ISOLASJON",
+        "LOFT_FUKTINDIKASJON",
+        "LOFT_TILKOMST"
+      ]
+    },
+    "Teknisk_rom": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "TEKNISK_ROR",
+        "TEKNISK_EL",
+        "TEKNISK_VENTILASJON",
+        "TEKNISK_FUKT"
+      ]
+    },
+    "Balkong/Terrasse": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "UTE_REKKVERK",
+        "UTE_OVERFLATE",
+        "UTE_FALL_AVRENNING"
+      ]
+    },
+    "Garasje": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "GARASJE_KONSTRUKSJON",
+        "GARASJE_PORT",
+        "GARASJE_FUKT"
+      ]
+    },
+    "Stue": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "ROM_OVERFLATER",
+        "ROM_VENTILASJON",
+        "ROM_VINDUER"
+      ]
+    },
+    "Soverom": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "ROM_OVERFLATER",
+        "ROM_VENTILASJON",
+        "ROM_VINDUER"
+      ]
+    },
+    "Entré/Gang": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "ROM_OVERFLATER",
+        "ROM_TRAPP_REKKVERK_OPT"
+      ]
+    },
+    "Bod": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "BOD_FUKT",
+        "BOD_VENTILASJON",
+        "BOD_OVERFLATER"
+      ]
+    },
+    "Trapp": {
+      "is_wet_room": false,
+      "mandatory_checks": [
+        "TRAPP_SIKKERHET",
+        "TRAPP_REKKVERK"
+      ]
+    }
+  },
+  "checklist_items_catalog": [
+    {
+      "item_code": "DOK_KJENTE_OPPLYSNINGER",
+      "title": "Opplysninger fra eier/oppdragsgiver",
+      "scope": "BUILDING_PART",
+      "building_part_code": "DOKUMENTASJON",
+      "required": true,
+      "guidance": "Registrer opplysninger som er relevante for vurdering, inkl. utbedringer, feil/mangler og historikk."
+    },
+    {
+      "item_code": "DOK_DOKUMENTASJON",
+      "title": "Tilgjengelig dokumentasjon (kvitteringer, samsvar, FDV)",
+      "scope": "BUILDING_PART",
+      "building_part_code": "DOKUMENTASJON",
+      "required": true,
+      "guidance": "Knytt dokumenter (Boligmappa/kunde) og noter eventuelle mangler."
+    },
+    {
+      "item_code": "TOMT_FALL",
+      "title": "Fallforhold og avrenning fra bygget",
+      "scope": "BUILDING_PART",
+      "building_part_code": "TOMT_OG_TERRRENG",
+      "required": true
+    },
+    {
+      "item_code": "TOMT_OVERFLATEVANN",
+      "title": "Overflatevann og drenerende masser",
+      "scope": "BUILDING_PART",
+      "building_part_code": "TOMT_OG_TERRRENG",
+      "required": true
+    },
+    {
+      "item_code": "DREN_ALDER",
+      "title": "Drenering – alder/ukjent",
+      "scope": "BUILDING_PART",
+      "building_part_code": "DRENERING",
+      "required": true
+    },
+    {
+      "item_code": "DREN_INDIKASJON",
+      "title": "Drenering – indikasjoner på svikt/fukt",
+      "scope": "BUILDING_PART",
+      "building_part_code": "DRENERING",
+      "required": true
+    },
+    {
+      "item_code": "GRUNN_SETNING",
+      "title": "Setninger/riss/sprekker",
+      "scope": "BUILDING_PART",
+      "building_part_code": "GRUNN_OG_FUNDAMENT",
+      "required": true
+    },
+    {
+      "item_code": "GRUNNMUR_UTV_FUKT",
+      "title": "Grunnmur utvendig – fuktmerker/avskalling",
+      "scope": "BUILDING_PART",
+      "building_part_code": "GRUNNMUR_UTV",
+      "required": true
+    },
+    {
+      "item_code": "GRUNNMUR_INNV_SALT",
+      "title": "Grunnmur innvendig – saltutslag/fukt",
+      "scope": "BUILDING_PART",
+      "building_part_code": "GRUNNMUR_INNV",
+      "required": true
+    },
+    {
+      "item_code": "FASADE_SLITASJE",
+      "title": "Fasade – slitasje/vedlikehold",
+      "scope": "BUILDING_PART",
+      "building_part_code": "YTTRE_VEGGER",
+      "required": true
+    },
+    {
+      "item_code": "FASADE_FUKT",
+      "title": "Fasade – fuktindikasjoner/skader",
+      "scope": "BUILDING_PART",
+      "building_part_code": "YTTRE_VEGGER",
+      "required": true
+    },
+    {
+      "item_code": "VINDU_TETTING",
+      "title": "Vinduer/dører – tetting, funksjon, slitasje",
+      "scope": "BUILDING_PART",
+      "building_part_code": "VINDUER_DORER",
+      "required": true
+    },
+    {
+      "item_code": "VINDU_RAADE",
+      "title": "Vinduer/dører – råte/fuktskader",
+      "scope": "BUILDING_PART",
+      "building_part_code": "VINDUER_DORER",
+      "required": true
+    },
+    {
+      "item_code": "TAKTEKKING_SLITASJE",
+      "title": "Taktekking – slitasje, skader, lekkasjeindikasjoner",
+      "scope": "BUILDING_PART",
+      "building_part_code": "TAKTEKKING",
+      "required": true
+    },
+    {
+      "item_code": "TAK_LUFTING",
+      "title": "Takkonstruksjon – lufting/ventilasjon",
+      "scope": "BUILDING_PART",
+      "building_part_code": "TAKKONSTRUKSJON",
+      "required": true
+    },
+    {
+      "item_code": "TAK_UNDERTAK",
+      "title": "Takkonstruksjon – undertak/fuktindikasjoner",
+      "scope": "BUILDING_PART",
+      "building_part_code": "TAKKONSTRUKSJON",
+      "required": true
+    },
+    {
+      "item_code": "TAKRENNER",
+      "title": "Takrenner/nedløp – funksjon og tilstand",
+      "scope": "BUILDING_PART",
+      "building_part_code": "TAKRENNER_BESLAG",
+      "required": true
+    },
+    {
+      "item_code": "PIPE_SYN",
+      "title": "Pipe/ildsted – synlige forhold, avvik, sotluke",
+      "scope": "BUILDING_PART",
+      "building_part_code": "PIPE_ILDSTED",
+      "required": false
+    },
+    {
+      "item_code": "ETASJESKILLER_SKJEV",
+      "title": "Etasjeskillere – skjevheter/knirk/sprekk",
+      "scope": "BUILDING_PART",
+      "building_part_code": "ETASJESKILLER",
+      "required": true
+    },
+    {
+      "item_code": "INNV_VEGGER_SPREKK",
+      "title": "Innvendige vegger – sprekker/skader",
+      "scope": "BUILDING_PART",
+      "building_part_code": "INNV_VEGGER",
+      "required": true
+    },
+    {
+      "item_code": "GULV_OVERFLATE",
+      "title": "Gulv – overflater og slitasje",
+      "scope": "BUILDING_PART",
+      "building_part_code": "GULV",
+      "required": true
+    },
+    {
+      "item_code": "HIMLING_OVERFLATE",
+      "title": "Himling – overflater, sprekker, fuktmerker",
+      "scope": "BUILDING_PART",
+      "building_part_code": "HIMLING",
+      "required": true
+    },
+    {
+      "item_code": "EL_SIKRINGSKAP",
+      "title": "El – sikringsskap, merking, alder/standard",
+      "scope": "BUILDING_PART",
+      "building_part_code": "EL_ANLEGG",
+      "required": true
+    },
+    {
+      "item_code": "EL_DOK",
+      "title": "El – dokumentasjon (samsvarserklæring)",
+      "scope": "BUILDING_PART",
+      "building_part_code": "EL_ANLEGG",
+      "required": true
+    },
+    {
+      "item_code": "VVS_LEKKASJE",
+      "title": "VVS – lekkasjeindikasjoner/korrosjon",
+      "scope": "BUILDING_PART",
+      "building_part_code": "VVS",
+      "required": true
+    },
+    {
+      "item_code": "VVS_ALDER",
+      "title": "VVS – alder/forventet levetid",
+      "scope": "BUILDING_PART",
+      "building_part_code": "VVS",
+      "required": true
+    },
+    {
+      "item_code": "VENT_TYPE",
+      "title": "Ventilasjon – type og funksjon (visuell)",
+      "scope": "BUILDING_PART",
+      "building_part_code": "VENTILASJON",
+      "required": true
+    },
+    {
+      "item_code": "OPPVARMING_SYSTEM",
+      "title": "Oppvarming – system og synlige forhold",
+      "scope": "BUILDING_PART",
+      "building_part_code": "OPPVARMING",
+      "required": true
+    },
+    {
+      "item_code": "BRANN_VARSLER",
+      "title": "Brannsikkerhet – røykvarslere/slokkeutstyr (opplyst/visuell)",
+      "scope": "BUILDING_PART",
+      "building_part_code": "BRANNSIKKERHET",
+      "required": false
+    },
+    {
+      "item_code": "BAD_OVERFLATER",
+      "title": "Bad – overflater (gulv/vegg)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "BAD_MEMBRAN_INDIKASJON",
+      "title": "Bad – membranindikasjoner",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "BAD_ROR_GJENNOMFORINGER",
+      "title": "Bad – rørgjennomføringer/tetting",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "BAD_SLUK",
+      "title": "Bad – sluk (type/tilstand/synlig)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "BAD_FALL_TIL_SLUK",
+      "title": "Bad – fall mot sluk (indikasjon)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "BAD_VENTILASJON",
+      "title": "Bad – ventilasjon/avtrekk",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "BAD_INNREDNING",
+      "title": "Bad – innredning/utstyr (synlig)",
+      "scope": "ROOM",
+      "required": false
+    },
+    {
+      "item_code": "BAD_FUKTINDIKASJON",
+      "title": "Bad – fuktindikasjoner (synlig/måling)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "WC_OVERFLATER",
+      "title": "WC – overflater og synlige forhold",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "WC_VENTILASJON",
+      "title": "WC – ventilasjon",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "WC_ROR",
+      "title": "WC – rør/armatur (synlig)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "VASK_OVERFLATER",
+      "title": "Vaskerom – overflater",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "VASK_SLUK",
+      "title": "Vaskerom – sluk",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "VASK_VENTILASJON",
+      "title": "Vaskerom – ventilasjon",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "VASK_ROR",
+      "title": "Vaskerom – rør/tilkoblinger",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "VASK_FUKTINDIKASJON",
+      "title": "Vaskerom – fuktindikasjoner",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "KJOKKEN_AVTREKK",
+      "title": "Kjøkken – avtrekk/ventilasjon",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "KJOKKEN_VANNINSTALLASJON",
+      "title": "Kjøkken – vanninstallasjoner (synlig)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "KJOKKEN_FUKTINDIKASJON",
+      "title": "Kjøkken – fukt i benkeskap/under vask",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "KJOKKEN_INNREDNING",
+      "title": "Kjøkken – innredning/overflater",
+      "scope": "ROOM",
+      "required": false
+    },
+    {
+      "item_code": "KJELLER_FUKTINDIKASJON",
+      "title": "Kjeller – fuktindikasjoner (synlig/måling)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "KJELLER_LUKT",
+      "title": "Kjeller – lukt/innemiljø",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "KJELLER_VEGGER_GULV",
+      "title": "Kjeller – vegger/gulv (skader/fukt)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "KJELLER_VENTILASJON",
+      "title": "Kjeller – ventilasjon/lufting",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "KJELLER_DRENERINGSINDIKASJON",
+      "title": "Kjeller – indikasjoner på dreneringssvikt",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "LOFT_LUFTING",
+      "title": "Loft – lufting/ventilasjon",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "LOFT_ISOLASJON",
+      "title": "Loft – isolasjon (synlig)",
+      "scope": "ROOM",
+      "required": false
+    },
+    {
+      "item_code": "LOFT_FUKTINDIKASJON",
+      "title": "Loft – fuktindikasjoner/undertak",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "LOFT_TILKOMST",
+      "title": "Loft – tilkomst/sikkerhet",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "TEKNISK_ROR",
+      "title": "Teknisk rom – rør/utstyr (synlig)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "TEKNISK_EL",
+      "title": "Teknisk rom – elektriske komponenter (synlig)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "TEKNISK_VENTILASJON",
+      "title": "Teknisk rom – ventilasjonsaggregat/kanaler (synlig)",
+      "scope": "ROOM",
+      "required": false
+    },
+    {
+      "item_code": "TEKNISK_FUKT",
+      "title": "Teknisk rom – fuktindikasjoner",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "ROM_OVERFLATER",
+      "title": "Rom – overflater (generelt)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "ROM_VENTILASJON",
+      "title": "Rom – ventilasjon (generelt)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "ROM_VINDUER",
+      "title": "Rom – vinduer (synlig)",
+      "scope": "ROOM",
+      "required": false
+    },
+    {
+      "item_code": "BOD_FUKT",
+      "title": "Bod – fuktindikasjoner",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "BOD_VENTILASJON",
+      "title": "Bod – ventilasjon",
+      "scope": "ROOM",
+      "required": false
+    },
+    {
+      "item_code": "BOD_OVERFLATER",
+      "title": "Bod – overflater",
+      "scope": "ROOM",
+      "required": false
+    },
+    {
+      "item_code": "TRAPP_SIKKERHET",
+      "title": "Trapp – sikkerhet/skader",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "TRAPP_REKKVERK",
+      "title": "Trapp – rekkverk/høyde/fasthet (indikasjon)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "UTE_REKKVERK",
+      "title": "Ute – rekkverk (fasthet/skader)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "UTE_OVERFLATE",
+      "title": "Ute – overflater (slitasje/skader)",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "UTE_FALL_AVRENNING",
+      "title": "Ute – fall/avrenning",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "GARASJE_KONSTRUKSJON",
+      "title": "Garasje – konstruksjon og overflater",
+      "scope": "ROOM",
+      "required": true
+    },
+    {
+      "item_code": "GARASJE_PORT",
+      "title": "Garasje – port/dør (synlig funksjon)",
+      "scope": "ROOM",
+      "required": false
+    },
+    {
+      "item_code": "GARASJE_FUKT",
+      "title": "Garasje – fuktindikasjoner",
+      "scope": "ROOM",
+      "required": true
+    }
+  ],
+  "autosuggestion_library": {
+    "generic": {
+      "finding": [
+        "Aldersrelatert slitasje observert.",
+        "Synlige skader/avvik registrert ved befaring.",
+        "Indikasjoner på fuktpåvirkning.",
+        "Manglende eller begrenset dokumentasjon.",
+        "Forholdet kunne ikke inspiseres fullt ut."
+      ],
+      "cause": [
+        "Aldersrelatert slitasje over tid.",
+        "Mangelfull utførelse eller avvik fra forventet standard.",
+        "Fuktpåvirkning fra omgivelsene/terreng/ventilasjon.",
+        "Mekanisk skade/påkjenning.",
+        "Utilstrekkelig ventilasjon/lufting.",
+        "Ukjent konstruksjon og manglende historikk."
+      ],
+      "consequence": [
+        "Kan medføre økt vedlikeholdsbehov og redusert levetid.",
+        "Kan gi økt risiko for fuktskader og følgeskader.",
+        "Kan gi redusert funksjon og komfort.",
+        "Anbefales utbedret for å redusere risiko for videre skade.",
+        "Bør vurderes nærmere av fagperson."
+      ],
+      "action": [
+        "Videre undersøkelser anbefales.",
+        "Utbedring/rehabilitering anbefales av fagperson.",
+        "Vedlikeholdstiltak anbefales.",
+        "Overvåkning og kontroll ved anledning.",
+        "Utskifting anbefales."
+      ],
+      "not_inspected_reason": [
+        "Ikke tilgjengelig (låst/ingen nøkkel).",
+        "Skjult bak innredning/møbler.",
+        "Krever inngrep/destruktiv undersøkelse.",
+        "HMS/sikkerhet – ikke forsvarlig å inspisere."
+      ]
+    },
+    "bygningsdel": {
+      "DRENERING": {
+        "quick_findings": [
+          "Ukjent alder på drenering",
+          "Fuktmerker/saltutslag i kjeller/underetasje",
+          "Terreng faller mot grunnmur",
+          "Manglende avledning av takvann"
+        ],
+        "cause": [
+          "Drenering nær eller over forventet levetid.",
+          "Mangelfull overflateavledning fra terreng/takvann."
+        ],
+        "action": [
+          "Videre vurdering av drenering og fuktsikring anbefales.",
+          "Tiltak for forbedret overflateavledning anbefales."
+        ]
+      },
+      "TAKTEKKING": {
+        "quick_findings": [
+          "Slitasje",
+          "Skader på tekking",
+          "Lekkasjeindikasjoner",
+          "Mose/tilgroing"
+        ],
+        "cause": [
+          "Aldersrelatert slitasje på tekking.",
+          "Lokale skader etter vær/påkjenning."
+        ],
+        "action": [
+          "Kontroll/vedlikehold av taktekking anbefales.",
+          "Videre undersøkelser ved lekkasjeindikasjoner."
+        ]
+      },
+      "TAKKONSTRUKSJON": {
+        "quick_findings": [
+          "Mangelfull lufting",
+          "Fuktindikasjoner ved undertak",
+          "Kondens-/muggindikasjon"
+        ],
+        "cause": [
+          "Utilstrekkelig ventilasjon/lufting i takkonstruksjon.",
+          "Fuktpåvirkning over tid."
+        ],
+        "action": [
+          "Kontroll av lufting/undertak anbefales.",
+          "Videre undersøkelser ved fuktindikasjoner."
+        ]
+      },
+      "VINDUER_DORER": {
+        "quick_findings": [
+          "Teg n til råte",
+          "Svekket tetting",
+          "Funksjonsavvik",
+          "Kondens/slitasje"
+        ],
+        "cause": [
+          "Aldersrelatert slitasje og værpåkjenning.",
+          "Mangelfullt vedlikehold/tetting."
+        ],
+        "action": [
+          "Vedlikehold/utskiftning anbefales ved behov.",
+          "Kontroll av tetting og vannbrett anbefales."
+        ]
+      },
+      "EL_ANLEGG": {
+        "quick_findings": [
+          "Manglende samsvarserklæring",
+          "Eldre skap/merking",
+          "Synlige avvik"
+        ],
+        "cause": [
+          "Manglende dokumentasjon.",
+          "Eldre anlegg med forventet oppgraderingsbehov."
+        ],
+        "action": [
+          "Kontroll av registrert elektroinstallatør anbefales.",
+          "Innhent dokumentasjon/samsvar."
+        ]
+      },
+      "VVS": {
+        "quick_findings": [
+          "Korrosjon/lekkasjeindikasjoner",
+          "Eldre rør/armatur",
+          "Fukt/lukt ved avløp"
+        ],
+        "cause": [
+          "Alder og slitasje på rør/armatur.",
+          "Mangelfull tetting/tilkobling."
+        ],
+        "action": [
+          "Kontroll av rørlegger anbefales ved indikasjoner.",
+          "Vedlikehold/utskiftning av utsatte deler."
+        ]
+      }
+    },
+    "romtype": {
+      "Bad": {
+        "tg_hint": {
+          "mangelfull_ventilasjon": "TG1",
+          "manglende_fall": "TG2",
+          "fuktindikasjon": "TG2",
+          "mistanke_membran": "TG3"
+        },
+        "action": [
+          "Videre undersøkelser av membran/sluk anbefales.",
+          "Kontroll av fallforhold og tetting anbefales.",
+          "Kontroll av ventilasjon/luftmengder anbefales."
+        ]
+      },
+      "Kjøkken": {
+        "tg_hint": {
+          "fukt_i_benkeskap": "TG2",
+          "lekkasjeindikasjon": "TG2",
+          "manglende_avtrekk": "TG1"
+        },
+        "action": [
+          "Kontroller fuktforhold i benkeskap og ved oppvaskmaskin.",
+          "Utbedre/forbedre avtrekk ved behov."
+        ]
+      },
+      "Kjeller": {
+        "tg_hint": {
+          "saltutslag": "TG2",
+          "vedvarende_fukt": "TG3",
+          "lukt": "TG2"
+        },
+        "action": [
+          "Videre vurdering av fuktsikring/drenering anbefales.",
+          "Tiltak for forbedret ventilasjon anbefales."
+        ]
+      },
+      "Loft": {
+        "tg_hint": {
+          "kondens": "TG2",
+          "muggindikasjon": "TG3",
+          "mangelfull_lufting": "TG2"
+        },
+        "action": [
+          "Kontroller lufting/ventilasjon og undertak.",
+          "Videre undersøkelser ved fuktindikasjoner."
+        ]
+      },
+      "Teknisk_rom": {
+        "tg_hint": {
+          "lekkasjeindikasjon": "TG2",
+          "korrosjon": "TG2"
+        },
+        "action": [
+          "Kontroll av installasjoner av fagperson ved behov.",
+          "Ettersyn/vedlikehold anbefales."
+        ]
+      }
+    }
+  },
+  "ai_room_prompts": {
+    "policy": {
+      "must_quote_only_structured_inputs": true,
+      "must_list_missing_fields": true,
+      "must_not_assume_hidden_defects": true,
+      "output_format": "json"
+    },
+    "prompts": {
+      "ROOM_GENERIC": {
+        "system": "Du skriver nøytrale, faglige tekstforslag til en tilstandsrapport basert kun på strukturert input. Du skal aldri gjette. Hvis input er mangelfull, list 'missing_data'.",
+        "user_template": {
+          "instruction": "Skriv tekstblokker for rommet. Bruk TG, funn, årsak, konsekvens og tiltak. Hold språket kort og presist.",
+          "inputs": [
+            "room",
+            "checklist_items",
+            "observations",
+            "media_captions",
+            "transcripts"
+          ],
+          "output_json_schema": {
+            "room_summary": "string",
+            "observations_text": "array[string]",
+            "actions_text": "array[string]",
+            "assumptions_text": "array[string]",
+            "missing_data": "array[string]"
+          }
+        }
+      },
+      "ROOM_BAD": {
+        "system": "Du skriver tekst for bad/våtrom basert på TG og registrerte funn. Ikke konkluder om membran uten at det er eksplisitt registrert som funn/indikasjon.",
+        "user_template": {
+          "instruction": "Skriv en kort rombeskrivelse og punktvise observasjoner. Hvis fall/sluk/ventilasjon ikke er registrert, før det i missing_data.",
+          "inputs": [
+            "room",
+            "observations",
+            "media_captions",
+            "transcripts"
+          ],
+          "output_json_schema": {
+            "room_summary": "string",
+            "observations_text": "array[string]",
+            "actions_text": "array[string]",
+            "missing_data": "array[string]"
+          }
+        }
+      },
+      "ROOM_KJOKKEN": {
+        "system": "Du skriver tekst for kjøkken basert på registrerte funn, særlig fukt og avtrekk.",
+        "user_template": {
+          "instruction": "Skriv kort om avtrekk, synlige installasjoner og eventuelle fuktindikasjoner.",
+          "inputs": [
+            "room",
+            "observations",
+            "media_captions",
+            "transcripts"
+          ],
+          "output_json_schema": {
+            "room_summary": "string",
+            "observations_text": "array[string]",
+            "actions_text": "array[string]",
+            "missing_data": "array[string]"
+          }
+        }
+      },
+      "ROOM_KJELLER": {
+        "system": "Du skriver tekst for kjeller/underetasje med fokus på fuktindikasjoner, lukt og ventilasjon.",
+        "user_template": {
+          "instruction": "Skriv nøkternt. Skille tydelig mellom 'indikasjon' og 'konklusjon'.",
+          "inputs": [
+            "room",
+            "observations",
+            "media_captions",
+            "transcripts"
+          ],
+          "output_json_schema": {
+            "room_summary": "string",
+            "observations_text": "array[string]",
+            "actions_text": "array[string]",
+            "missing_data": "array[string]"
+          }
+        }
+      }
+    }
+  },
+  "ui_recommendations": {
+    "capture": {
+      "per_checklist_item": [
+        "photo",
+        "note",
+        "audio"
+      ],
+      "per_room": [
+        "photo",
+        "audio",
+        "note"
+      ],
+      "default_media_caption_suggestion": true
+    },
+    "autosuggest": {
+      "show_quick_findings": true,
+      "show_tg_hint": true,
+      "show_reason_presets": true,
+      "show_action_presets": true
+    },
+    "validation": {
+      "block_publish_on_errors": true,
+      "warn_on_missing_optional": true,
+      "require_acknowledge_limitations": true
+    }
+  },
+  "ui_catalog": {
+    "room_type_icons": {
+      "Entré/Gang": "lucide:DoorOpen",
+      "Stue": "lucide:Sofa",
+      "Kjøkken": "lucide:CookingPot",
+      "Soverom": "lucide:BedDouble",
+      "Bad": "lucide:ShowerHead",
+      "WC": "lucide:Toilet",
+      "Vaskerom": "lucide:WashingMachine",
+      "Teknisk_rom": "lucide:Cpu",
+      "Bod": "lucide:Package",
+      "Kjeller": "lucide:BrickWall",
+      "Loft": "lucide:Home",
+      "Trapp": "lucide:Steps",
+      "Garasje": "lucide:Car",
+      "Balkong/Terrasse": "lucide:Sun",
+      "Uthus/Anneks": "lucide:Warehouse",
+      "Fellesareal": "lucide:Users",
+      "Annet": "lucide:Shapes"
+    }
+  }
+}

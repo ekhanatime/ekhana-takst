@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ekhana – Takst Mock (Standalone)</title>
+  <!-- cache-bust for deploys -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <link rel="stylesheet" href="styles.css?v=6" />
+</head>
+<body>
+  <header class="navbar navbar-expand-lg bg-white border-bottom px-3 py-2">
+    <div class="brand d-flex align-items-center gap-2">
+      <div class="logo">E</div>
+      <div>
+        <div class="title">Ekhana Takst</div>
+        <div class="subtitle">Standalone mock • JSON-first • <span id="buildId">build v5</span></div>
+      </div>
+    </div>  <div class="ms-auto d-flex align-items-center gap-2">
+    <a class="btn btn-sm btn-primary" href="onboarding.html">Onboarding</a>
+    <a class="btn btn-sm btn-outline-primary" href="changelog.html">Changelog</a>
+    <button id="btnReset" class="btn btn-outline-secondary btn-sm">Nullstill demo</button>
+  </div>
+  </header>
+
+  <main class="main">
+    <section id="viewClient" class="view"></section>
+    <section id="viewInspector" class="view" hidden></section>
+    <section id="viewPreview" class="view" hidden></section>
+  </main>
+
+  <nav class="bottombar">
+    <button class="tab active" data-tab="client">Kunde</button>
+    <button class="tab" data-tab="inspector">Takstmann</button>
+    <button class="tab" data-tab="preview">Preview</button>
+  </nav>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <!-- Modal layer (used by Takstmann table editor + media viewer) -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__header">
+        <div>
+          <div id="modalTitle" class="modal__title">Modal</div>
+          <div id="modalSubtitle" class="modal__subtitle"></div>
+        </div>
+        <button class="iconbtn" data-close aria-label="Lukk">✕</button>
+      </div>
+      <div id="modalBody" class="modal__body"></div>
+      <div id="modalFooter" class="modal__footer"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="js/app.js?v=6" defer></script>
+</body>
+</html>
