@@ -73,3 +73,5 @@
   - Fjernet tomme mapper og ryddet opp
 - Testet at alle lenker og funksjonalitet fungerer etter flytting
 - Forberedt commit av refactoring-endringer
+- Fikset lint-feil: lagt til placeholder på input-felt og flyttet inline CSS til ekstern fil
+- Opprettet omfattende README.md for GitHub med prosjektoversikt, funksjoner og bidragsretningslinjer

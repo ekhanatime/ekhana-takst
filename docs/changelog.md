@@ -104,3 +104,13 @@
 - Oppdaterte alle interne lenker og sti-referanser
 - Opprettet omfattende README.md med prosjektoversikt
 - Rydde opp i repository-struktur
+
+---
+
+## 20. januar 2026 kl. 17:20
+
+### Lint-fiks og tilgjengelighet
+- Fikset accessibility-feil: lagt til placeholder på input-felt i onboarding
+- Flyttet inline CSS til ekstern fil for bedre vedlikehold
+- Forbedret kodekvalitet og linting-samsvar
+- Opprettet omfattende README.md for GitHub-profil med prosjektoversikt, funksjoner og bidragsretningslinjer
