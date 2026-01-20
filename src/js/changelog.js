@@ -7,9 +7,9 @@
   const docEl = $('#doc');
 
   const DOCS = {
-    changelog: { file: './changelog.md', title: 'Changelog' },
-    project: { file: './project.md', title: 'Prosjektbeskrivelse' },
-    tasklog: { file: './tasklog.md', title: 'Tasklog' },
+    changelog: { file: '../docs/changelog.md', title: 'Changelog' },
+    project: { file: '../docs/project.md', title: 'Prosjektbeskrivelse' },
+    tasklog: { file: '../docs/tasklog.md', title: 'Tasklog' },
   };
 
   function escapeHtml(s){

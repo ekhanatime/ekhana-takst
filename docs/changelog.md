@@ -90,3 +90,17 @@
 - Forberedt prosjekt for åpen kildekode-samarbeid
 - Lagt til .gitignore for Node.js/Bootstrap-avhengigheter
 - Satt opp remote origin og pushet første commit
+
+---
+
+## 20. januar 2026 kl. 17:15
+
+### Prosjektstruktur-refactoring
+- Omorganisert mappestruktur for bedre vedlikehold:
+  - `src/pages/` for HTML-filer
+  - `src/js/` for JavaScript-filer
+  - `assets/css/` for stilark
+  - `docs/` for dokumentasjon
+- Oppdaterte alle interne lenker og sti-referanser
+- Opprettet omfattende README.md med prosjektoversikt
+- Rydde opp i repository-struktur

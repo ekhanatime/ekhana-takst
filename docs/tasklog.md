@@ -60,3 +60,16 @@
 - Opprettet nytt GitHub-repository og pushet første commit.
 - Lagt til .gitignore-fil for å ekskludere unødvendige filer.
 - Satt opp grunnleggende repository-struktur for samarbeid.
+
+---
+## 20. januar 2026 kl. 17:15
+- Utført omfattende mappestruktur-refactoring:
+  - Flyttet HTML-filer til `src/pages/`
+  - Flyttet JS-filer til `src/js/`
+  - Flyttet CSS til `assets/css/`
+  - Flyttet dokumentasjon til `docs/`
+  - Oppdaterte alle sti-referanser i HTML/JS-filer
+  - Opprettet README.md med prosjektoversikt
+  - Fjernet tomme mapper og ryddet opp
+- Testet at alle lenker og funksjonalitet fungerer etter flytting
+- Forberedt commit av refactoring-endringer
